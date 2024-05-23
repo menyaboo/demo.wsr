@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\models\ServiceOrder;
 use app\models\ServiceRequest;
 use app\models\ServiceRequestSearch;
+use app\models\ServiceRequestStatus;
+use app\widgets\Alert;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -108,9 +110,18 @@ class ServiceRequestController extends Controller
     {
         $model = $this->findModel($id);
 
+        $oldStatus = ServiceRequestStatus::find()->where(['id' => $model->status_id])->one()->name;
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $newStatus = ServiceRequestStatus::find()->where(['id' => $model->status_id])->one()->name;
+
+            if ($oldStatus != $newStatus) {
+                Yii::$app->session->setFlash('changeStatus', 'Статус заявки изменился с ' . $oldStatus . ' на ' . $newStatus);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         return $this->render('update', [
             'model' => $model,

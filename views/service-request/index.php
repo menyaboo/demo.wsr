@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, ServiceRequest $model, $key, $index, $column) {
                     // Проверяем, если пользователь имеет роль 'client', то не создаем ссылки для действий 'update' и 'delete'
-                    if (!Yii::$app->user->identity->roleMiddleware('client') && in_array($action, ['update', 'delete'])) {
+                    if (Yii::$app->user->identity->roleMiddleware('client') && in_array($action, ['update', 'delete'])) {
                         return null;
                     }
                     // Для всех остальных действий создаем ссылки

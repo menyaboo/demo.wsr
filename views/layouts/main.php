@@ -4,7 +4,7 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
-use app\widgets\Alert;
+use yii\bootstrap5\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
@@ -96,6 +96,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         </div>
     </div>
 </footer>
+
+<div class="position-absolute bottom-0 p-4">
+    <?php
+    if (Yii::$app->session->hasFlash('changeStatus')) {
+        echo Alert::widget([
+            'options' => [
+                'class' => 'alert-success',
+            ],
+            'body' => Yii::$app->session->getFlash('changeStatus'),
+        ]);
+    } ?>
+</div>
+
 
 <?php $this->endBody() ?>
 </body>

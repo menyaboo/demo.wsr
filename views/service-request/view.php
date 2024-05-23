@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -10,15 +11,6 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Service Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-
-$anotherModel = new \app\models\Comment();
-
-$additionalProps = [
-    'service_request_id' => $model->id,
-];
-
-$data = array_merge(['model' => $anotherModel], $additionalProps);
-
 ?>
 <div class="service-request-view">
 
@@ -37,10 +29,4 @@ $data = array_merge(['model' => $anotherModel], $additionalProps);
             'client_id',
         ],
     ]) ?>
-
-<!--    <h3>Комментарии:</h3>-->
-<!---->
-<!--    <div class="comment-create">-->
-<!--        --><?php //= $this->render('_form_comment', $data) ?>
-<!--    </div>-->
 </div>
